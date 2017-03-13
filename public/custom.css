@@ -1,0 +1,180 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900);
+
+.remark-notes p {
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.remark-slide-content {
+  background-color: white;
+  color: black;
+  padding: 1em 1em 1em 1em;
+}
+
+.remark-slide-content h1 {
+  font-size: 4em;
+}
+
+.title-bg {
+  background-color: #2E3E4D;
+  color: white;
+}
+.title-bg a:visited {
+  color: white;
+}
+
+.worldmap img {
+  height: 650px;
+}
+
+code {
+  padding: 15px;
+  text-align: left;
+}
+
+.huge h1 {
+  font-size: 8em;
+}
+.huge code {
+  font-size: 4em;
+}
+.large code {
+  font-size: 3em;
+}
+.big code {
+  font-size: 2em;
+}
+.increased code {
+  font-size: 1.25em;
+}
+
+li > code {
+  background-color: none;
+  padding: 0;
+}
+
+a {
+  color: #428bca;
+  text-decoration: none;
+}
+a:active, a:hover {
+  color: #2a6496;
+  text-decoration: underline;
+}
+
+.less-space h3 {
+  margin: 0;
+}
+
+img {
+  width: 100%;
+}
+.imgnormal img {
+  width: auto;
+}
+
+.gif {
+  background-size: 100%;
+}
+
+.title img {
+  width: 30%;
+}
+
+.introduction #my-name {
+  float: left;
+  width: 49%;
+  display: inline-block;
+}
+
+.introduction #info {
+  float: right;
+  width: 49%;
+  display: inline-block;
+  text-align: left;
+  font-size: 1.7em;
+  margin: 0;
+  padding: 0;
+}
+
+.introduction ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 40px;
+}
+.introduction li {
+  padding: 5px;
+}
+.introduction #logos {
+  margin-top: 100px;
+  text-align: center;
+}
+.introduction #logos img {
+  width: 40%;
+}
+#logos .left-logo {
+  margin-right: 20px;
+}
+
+twitterwidget {
+  margin: auto;
+}
+
+
+.footnote {
+  font-size: 1.0em;
+  padding: 5px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: white;
+}
+
+.doh h1, .doh a {
+  color: white;
+}
+.doh h1 {
+  position: absolute;
+  margin: 120px 100px;
+}
+.finally h1, .finally a {
+  color: red;
+}
+.finally h1 {
+  position: absolute;
+  margin: 100px 150px;
+}
+
+blockquote {
+  text-align: left;
+  font-size: 2.8em;
+  font-weight: bold;
+}
+
+.highl span.highl {
+  color: red;
+}
+
+thead {
+  display: none;
+}
+table {
+  margin: 0 auto;
+  width: 80%;
+  border-collapse: collapse;
+}
+table td {
+  width: 50%;
+  font-size: 2em;
+  padding-bottom: 40px;
+  vertical-align: top;
+}
+table tr {
+  height: 100px;
+}

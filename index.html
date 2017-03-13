@@ -1,0 +1,867 @@
+<!DOCTYPE html
+<html>
+  <head>
+    <title>Learn you some Rust</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="public/custom.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, less-space, title-bg, title
+
+# Learn you some Rust
+
+[![](media/boosterconf-logo.svg)](https://www.boosterconf.no/)
+
+### 2017-03-16
+### Jan-Erik Rediger — [@badboy_](https://twitter.com/badboy_)
+
+???
+
+Hey, I'm here to tell you a bit about how we can use Rust in fields you wouldn't even expect.
+You're here, so actually you might expect these fields.
+
+---
+
+class: center, middle, less-space, introduction
+
+<div id="my-name">
+  <img src='media/badboy.jpg' alt='' />
+  <h2>Jan-Erik Rediger</h2>
+  <h3><a href="https://twitter.com/badboy_">@badboy_</a></h3>
+</div>
+
+<div id="info">
+  <ul>
+    <li>Student</li>
+    <li>Mozilla TechSpeaker</li>
+    <li>Software Developer</li>
+    <li>Community Team Member</li>
+    <li>Meetup Organizer</li>
+    <li>RustFest Organizer</li>
+  </ul>
+
+  <div id="logos">
+    <img src="media/rrbone.png" class="left-logo">
+    <img src="media/mozilla.png">
+  </div>
+</div>
+
+---
+class: center, middle, imgnormal
+
+![](media/rust-logo.png)
+
+---
+class:
+
+## Rust
+
+```rust
+fn main() {
+    let program = "+ + * - /";
+    let mut accumulator = 0;
+
+    for token in program.chars() {
+        match token {
+            '+' => accumulator += 1,
+            '-' => accumulator -= 1,
+            '*' => accumulator *= 2,
+            '/' => accumulator /= 2,
+            _ => { /* ignore everything else */ }
+        }
+    }
+
+    println!("The program \"{}\" calculates the value {}",
+              program, accumulator);
+}
+```
+---
+class: center, middle
+
+> Rust is a systems programming language that <span class="highl">runs blazingly fast</span>, <span class="highl">prevents segfaults</span>, and guarantees <span class="highl">thread safety</span>.
+
+.footnote[from [www.rust-lang.org](https://www.rust-lang.org)]
+
+---
+class: center, middle, highl
+
+> Rust is a systems programming language that <span class="highl">runs blazingly fast</span>, <span class="highl">prevents segfaults</span>, and guarantees <span class="highl">thread safety</span>.
+
+.footnote[from [www.rust-lang.org](https://www.rust-lang.org)]
+
+---
+class: 
+
+## Rust's history
+
+* Development started about 11 years ago by Graydon Hoare
+
+* Version 1.0 in May 2015
+
+* Current version: 1.15\*
+
+* Sponsored by Mozilla since 2009
+
+.footnote[\* v1.16 this Friday!]
+
+---
+class:
+
+## Rust's development
+
+* in the open: github.com/rust-lang
+
+* 6 week release cycles
+
+* RFCs for bigger changes
+
+* Teams for different parts (Core, Lib, Tooling, Community, ...)
+
+---
+class: gif
+background-image: url(media/rust-friends.gif)
+
+---
+class: center, middle, imgnormal
+
+![](media/rust-logo.png)
+
+## Hack without fear
+
+---
+
+## Today's plan
+
+* Learn about Rust's strengths
+* Get familiar with its concepts
+* Enough time to play around
+
+---
+
+## What we won't achieve
+
+* Learn every aspect of Rust
+* Build a huge project
+
+---
+class: center, middle
+
+# Your background
+
+---
+class: center, middle
+
+# Completely new to programming?
+
+---
+class: center, middle
+
+# Dynamic programming languages?
+
+## Ruby, Python, Perl, ...
+
+---
+class: center, middle
+
+# Systems programming?
+
+## C/C++
+
+---
+class: center, middle
+
+# Rust?
+
+---
+class: center, middle
+
+# Installation
+
+## [www.rust-lang.org/en-US/install.html](https://www.rust-lang.org/en-US/install.html)
+
+### [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+.footnote[Exercises can be done without local install]
+
+---
+class: center, middle
+
+# Hello, world!
+
+---
+class: code, center, big
+
+## Hello, world!
+
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+---
+class: center, middle
+
+## Exercise: Hello, world!
+
+# [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+---
+class: center, middle
+
+# Documentation
+
+# [doc.rust-lang.org/std](https://doc.rust-lang.org/std/)
+
+---
+
+# Mutability
+
+- The ability to change something
+- Always explicit in Rust
+- Property of variables and bindings
+- Compile-time checked
+
+---
+class: big
+
+# Mutability
+
+```rust
+let x = 5;
+x = 6;
+```
+
+---
+class: big
+
+# Mutability
+
+```rust
+let x = 5;
+*x = 6; // re-assignment of
+*      // immutable variable \`x`
+```
+
+---
+class: big
+
+# Mutability
+
+```rust
+let mut x = 5;
+x = 6;
+```
+
+---
+
+# Basic data types - Numeric
+
+* Integer types
+  * i8, i16, i32, i64, u8, u16, u32, u64
+
+  ```rust
+let x : i32 = 1024;
+  ```
+
+
+* Floating point
+  * f32, f64
+
+  ```rust
+let pi : f32 = 3.14159;
+  ```
+
+---
+
+# Basic data types - Numeric
+
+* Casting between types
+
+  ```rust
+let foo = 3i64;
+let bar = foo as i32;
+  ```
+
+---
+
+# Basic data types - Strings
+
+* Always UTF-8 encoded byte sequences
+
+* Strings: Heap-allocated, owning data structure
+
+  ```rust
+let name : String = "Booster".to_string();
+  ```
+
+* String slice: View into string somewhere in memory
+
+  ```rust
+let location : &' static str = "Bergen, Norway";
+  ```
+
+---
+class: big
+
+# Functions
+
+```rust
+fn get_random(max: i32) -> i32 {
+    4 // chosen by fair dice roll
+}
+```
+* Always explicit types
+* Return value is optional
+
+---
+class: center, middle
+
+## Exercise: Hello, world!
+
+# [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+---
+class: center, middle
+
+# Ownership & Borrowing
+
+---
+class: middle
+
+# Ownership
+
+## n. The act, state, or right of possessing something.
+
+# Borrowing
+
+## v. To receive something with the promise of returning it.
+
+---
+
+## Ownership
+
+![](media/book-owner.svg)
+
+???
+
+You can see ownership in the real world.
+
+Take this simple example: You own a book
+
+---
+
+## Ownership
+
+![](media/book-owner2.svg)
+
+???
+
+You can see ownership in the real world.
+
+Take this simple example: You own a book
+
+---
+class: code, big
+
+## Ownership
+
+```rust
+fn main() {
+    let name = format!("..");
+    helper(name);
+*   helper(name);
+}
+
+
+*fn helper(name: String) {
+    println!(..);
+}
+```
+
+.footnote[[Example](https://is.gd/PdwwXX)]
+
+---
+class: code, big
+
+## Clone
+
+```rust
+fn main() {
+    let name = format!("..");
+    helper(name.clone());
+    helper(name);
+}
+
+
+fn helper(name: String) {
+    println!(..);
+}
+```
+
+.footnote[[Example](https://is.gd/LQmEXl)]
+
+---
+class: code, big
+
+## Copy (auto-clone)
+
+```rust
+fn main() {
+    let name = 22;
+    helper(name);
+    helper(name);
+}
+
+
+fn helper(name: i32) {
+    println!(..);
+}
+```
+
+.footnote[[Example](https://is.gd/1Pz50C)]
+
+---
+class: center, middle
+
+## Exercise: Ownership
+
+### [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+---
+
+## Borrowing: Shared borrows
+
+![](media/book-owner.svg)
+
+---
+
+## Borrowing: Shared borrows
+
+![](media/book-shared1.svg)
+
+---
+
+## Borrowing: Shared borrows
+
+![](media/book-shared2.svg)
+
+---
+class: big
+
+## Shared borrows
+
+```rust
+fn main() {
+    let name = format("..");
+    let reference = &name;
+    helper(reference);
+    helper(reference);
+}
+
+fn helper(name: &String) {
+    println!(..);
+}
+```
+
+.footnote[[Example](https://is.gd/pJtuwx)]
+
+---
+class: big
+
+# Shared = Immutable
+
+```rust
+fn helper(name: &String) {
+    println!("{}", name);
+}
+```
+
+---
+class: big
+
+# Shared = Immutable
+
+```rust
+fn helper(name: &String) {
+*   println!("{}", name);
+}
+```
+
+---
+class: big
+
+# Shared = Immutable
+
+```rust
+fn helper(name: &String) {
+    println!("{}", name);
+}
+```
+
+```rust
+fn helper(name: &String) {
+    name.push_str("foo"); 
+    // Error. This writes.
+}
+```
+---
+class: big
+
+# Shared = Immutable
+
+```rust
+fn helper(name: &String) {
+    println!("{}", name);
+}
+```
+
+```rust
+fn helper(name: &String) {
+*   name.push_str("foo"); 
+    // Error. This writes.
+}
+```
+
+---
+class: center, middle
+
+## Exercise: Shared Borrows
+
+### [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+---
+
+## Borrowing: Mutable borrows
+
+![](media/book-mut-shared.svg)
+
+---
+
+## Borrowing: Mutable borrows
+
+![](media/book-mut-shared2.svg)
+
+---
+class: big
+
+## Mutable borrows
+
+```rust
+fn main() {
+    let mut name = format!("..");
+    update(&mut name);
+    println!("{}", name);
+}
+
+fn update(name: &mut String) {
+    name.push_str("..");
+}
+```
+
+.footnote[[Example](https://is.gd/ylW6Yl)]
+
+---
+class: big
+
+## Mutable borrows
+
+```rust
+fn main() {
+*   let mut name = format!("..");
+    update(&mut name);
+    println!("{}", name);
+}
+
+fn update(name: &mut String) {
+    name.push_str("..");
+}
+```
+
+.footnote[[Example](https://is.gd/ylW6Yl)]
+
+---
+class: big
+
+## Mutable borrows
+
+```rust
+fn main() {
+    let mut name = format!("..");
+*   update(&mut name);
+    println!("{}", name);
+}
+
+fn update(name: &mut String) {
+    name.push_str("..");
+}
+```
+
+.footnote[[Example](https://is.gd/ylW6Yl)]
+
+---
+class: big
+
+## Mutable borrows
+
+```rust
+fn main() {
+    let mut name = format!("..");
+    update(&mut name);
+    println!("{}", name);
+}
+
+fn update(name: &mut String) {
+*   name.push_str("..");
+}
+```
+
+.footnote[[Example](https://is.gd/ylW6Yl)]
+
+---
+class: center, middle, bigtext
+
+x            | 
+-------------|----
+`name: String` | **Ownership**: <br> control all access, will free when done
+`name: &String` | **Shared reference**: <br> many readers, no writers
+`name: &mut String` | **Mutable reference**: <br> no readers, one writer
+
+---
+class: center, middle
+
+## Exercise: Mutable Borrows
+
+### [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+---
+class: big
+
+## Structs
+
+```rust
+struct Item {
+    name: String,
+    price: f32,
+}
+
+struct Store {
+    name: String,
+    prices: Vec<Item>,
+}
+```
+
+---
+class: big
+
+## Methods on Structs
+
+```rust
+struct Store { ... }
+
+impl Store {
+    fn new(name: String) -> Store {
+        return Store {
+            name: name,
+            items: vec![],
+        };
+    }
+}
+```
+
+---
+class: big
+
+## Methods on Structs
+
+```rust
+struct Store { ... }
+
+impl Store { ... }
+
+Store::new(some_name);
+```
+
+---
+class: big
+
+## Methods on Structs
+
+```rust
+struct Store { ... }
+
+impl Store { 
+    fn add_item(&mut self, item: Item) {
+        self.items.push(item);
+    }
+
+    fn price(&self, item_name: &str) -> f32 {
+        ...
+    }
+}
+```
+
+---
+class: big
+
+## Methods on Structs
+
+```rust
+struct Store { ... }
+impl Store { ... }
+
+store.add_item(...);
+
+store.price(...);
+```
+
+---
+class: big
+
+## Enums
+
+```rust
+enum Direction {
+    Right,
+    Left,
+    Up,
+    Down,
+}
+```
+
+```rust
+let dir = Direction::Left;
+```
+
+---
+class: big
+
+## Enums with values
+
+```rust
+enum Movement {
+    Right(i32),
+    Left(i32),
+    Up(i32),
+    Down(i32),
+    None,
+}
+```
+
+```rust
+let movement = Movement::Up(12);
+```
+
+---
+class: big
+
+## Options (and Generics)
+
+```rust
+enum Option<T> {
+    Some(T),
+    None
+}
+```
+
+---
+class: big
+
+## Options (and Generics)
+
+```rust
+*enum Option<T> {
+    Some(T),
+    None
+}
+```
+
+---
+class: big
+
+## Options (and Generics)
+
+```rust
+enum Option<T> {
+    Some(T),
+    None
+}
+
+let v : Option<i32> = Some(22);
+
+match v {
+    Some(x) => println!("{}", x),
+    None => println!("None"),
+}
+
+```
+
+---
+class: big
+
+## for loops
+
+```rust
+let v = vec!["Alpha",
+             "Beta",
+             "Gamma"];
+
+for s in v {
+    println!("{}", s);
+}
+```
+
+---
+class: center, middle
+
+## Exercise: Structs
+
+### [hellorust.com/booster](http://www.hellorust.com/booster/)
+
+
+---
+
+## Things we did not cover
+
+- Generics
+- Traits
+- Pattern matching
+- Closures
+- Iterators
+- Concurrency
+- Project management with Cargo
+
+---
+
+### Resources
+
+- [Exercises & Slides](http://www.hellorust.com/booster/)
+- [Rust Standard Library Documentation](https://doc.rust-lang.org/std/)
+- [Community Resources](https://community.rs/resources/)
+- [The Book, v1](https://doc.rust-lang.org/stable/book/)
+- [The Book, v2 (incomplete)](http://rust-lang.github.io/book/second-edition/index.html)
+
+---
+class: center, middle, less-space, title-bg, title
+
+# Thank you!
+
+# Learn you some Rust
+
+[![](media/boosterconf-logo.svg)](https://www.boosterconf.no/)
+
+### Jan-Erik Rediger — [@badboy_](https://twitter.com/badboy_)
+
+  </textarea>
+    <script src="public/remark.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+        highlightLanguage: "no-highlight"
+      });
+    </script>
+    <!--<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+  </body>
+</html>
